@@ -14,12 +14,17 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-app.use("/wallet-app-api/", router);
+app.use("/wallet-app-api", router);
 app.use((req, res) => {
   res.status(404).json({
     message: 'Endpoint not found. Please check the URL very well!',
   });
 });
+app.get("/",(req,res)=>{
+  res.status(404).json({
+    message: 'Back End setted successfully!',
+  });
+})
 const port = process.env.PORT;
 
 dbConnection()
