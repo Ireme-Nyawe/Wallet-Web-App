@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { FaTachometerAlt, FaWallet, FaListAlt, FaFileAlt, FaSignOutAlt, FaCog } from "react-icons/fa";
 import Logout from "./Logout";
+import TopHeading from "./TopHeading";
 
 const DashboardLayout = () => {
   return (
@@ -33,7 +34,7 @@ const DashboardLayout = () => {
             className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
           >
             <FaWallet />
-            <span>Set Budget</span>
+            <span>Budget</span>
           </Link>
           
           <Link
@@ -45,6 +46,14 @@ const DashboardLayout = () => {
           </Link>
           
           <Link
+            to="/dashboard/accounts"
+            className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
+          >
+            <FaWallet />
+            <span>Accounts</span>
+          </Link>
+
+          <Link
             to="/dashboard/transactions"
             className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
           >
@@ -53,11 +62,11 @@ const DashboardLayout = () => {
           </Link>
           
           <Link
-            to="/dashboard/report"
+            to="/dashboard/reports"
             className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
           >
             <FaFileAlt />
-            <span>Generate Report</span>
+            <span>Reports</span>
           </Link>
         </nav>
 
@@ -81,10 +90,7 @@ const DashboardLayout = () => {
       </aside>
 
       <main className="flex-1 p-6">
-        <header className="bg-accent text-primary py-4 px-6 rounded-lg shadow mb-6">
-          <h1 className="text-xl font-bold">Dashboard</h1>
-        </header>
-        
+             
         <div className="bg-primary rounded-lg shadow-sm p-6">
           <Outlet />
         </div>

@@ -7,6 +7,11 @@ import Dashboard from '../components/dashboard/Dashboard';
 import { useToast } from '../components/toasts/ToastManager';
 import PageNotFound from '../components/PageNotFound';
 import DashboardPageNotFound from '../components/dashboard/DashboardPageNotFound';
+import Budget from '../components/dashboard/Budget';
+import Categories from '../components/dashboard/Categories';
+import Transactions from '../components/dashboard/Transactions';
+import Reports from '../components/dashboard/Reports';
+import Accounts from '../components/dashboard/Accounts';
 
 const validateToken = () => {
   const token = localStorage.getItem('token');
@@ -122,6 +127,11 @@ const AppRouter = () => {
         }
       >
         <Route index element={<Dashboard />} />
+        <Route path="budget" element={<Budget />} />
+        <Route path="accounts" element={<Accounts />} />
+        <Route path="categories" element={<Categories />} />
+        <Route path="transactions" element={<Transactions />} />
+        <Route path="reports" element={<Reports />} />
         <Route path="*" element={<DashboardPageNotFound />} />
       </Route>
     </Routes>

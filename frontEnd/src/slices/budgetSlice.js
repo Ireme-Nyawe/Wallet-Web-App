@@ -7,26 +7,26 @@ import axiosInstance from "../utils/axios/axiosInstance";
  */
 import { handleError } from ".";
 
-
-
-export const login = async (email, password) => {
+export const createPeriodBudget = async (from, to, total, balance) => {
   try {
-    const response = await axiosInstance.post("/wallet-app-api/user/login", {
-      email,
-      password
-    })
-    return response.data
+    const response = await axiosInstance.post("/wallet-app-api/budget/", {
+      from,
+      to,
+      total,
+      balance,
+    });
+    return response.data;
   } catch (error) {
     const handledError = handleError(error);
     return handledError;
   }
-}
-export const userViewProfile = async () => {
+};
+export const viewBudgets = async () => {
   try {
-      const response = await axiosInstance.get("/wallet-app-api/user/profile");
-      return response.data
+    const response = await axiosInstance.get("/wallet-app-api/budget/");
+    return response.data;
   } catch (error) {
-      const handledError = handleError(error);
-      return handledError
+    const handledError = handleError(error);
+    return handledError;
   }
-}
+};

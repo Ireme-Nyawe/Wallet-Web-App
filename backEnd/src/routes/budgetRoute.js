@@ -5,14 +5,14 @@ import {
   getBudgetById,
   updateBudgetById,
   deleteBudgetById,
-} from "../controllers/budgetController.js";
+} from "../modules/budget.js";
 
-const router = express.Router();
+const budgetRoute = express.Router();
 
-router.post("/", createBudget);
-router.get("/", getAllBudgets); 
-router.get("/:id", getBudgetById);
-router.put("/:id", updateBudgetById);
-router.delete("/:id", deleteBudgetById);
+budgetRoute.post("/", createBudget);
+budgetRoute.get("/", getAllBudgets); 
+budgetRoute.get("/:id", getBudgetById);
+budgetRoute.put("/:id", updateBudgetById);
+budgetRoute.delete("/:id", deleteBudgetById);
 
-export default router;
+export default budgetRoute;
