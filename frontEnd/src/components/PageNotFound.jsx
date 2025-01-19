@@ -1,11 +1,9 @@
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import SEO from '../../components/re-usable/SEO';
 
-const DashboardNotFound = () => {
+const PageNotFound = () => {
   return (
     <>
-      <SEO title="Page Not Found - ES Gishoma" />
       <div className="flex flex-col items-center justify-center h-screen text-gray-700">
         <FaExclamationTriangle className="text-red-500 text-6xl mb-4" />
         <h1 className="text-3xl font-bold mb-2">Page Not Found</h1>
@@ -23,4 +21,4 @@ const DashboardNotFound = () => {
   );
 };
 
-export default DashboardNotFound;
+export default PageNotFound;

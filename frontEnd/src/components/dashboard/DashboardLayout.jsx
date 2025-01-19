@@ -1,41 +1,93 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Sidebar from '../../components/dashboard/Sidebar';
-import { useEffect, useState } from 'react';
-import { FaBars } from 'react-icons/fa';
-import { useToast } from '../../components/toasts/ToastManager';
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
+import { FaTachometerAlt, FaWallet, FaListAlt, FaFileAlt, FaSignOutAlt, FaCog } from "react-icons/fa";
 
-const DashboardLayout = ({ profile }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const { addToast } = useToast();
-
-  const onLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('tokenTimestamp');
-    addToast('success', 'Logged out successfully', 5000);
-    navigate('/login');
-  };
-
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
-  };
-
+const DashboardLayout = () => {
   return (
-    <div className="p-4 flex bg-gray-100">
-      <Sidebar
-        onLogout={onLogout}
-        isCollapsed={isSidebarCollapsed}
-        profile={profile}
-      />
-      <div className="flex-1 min-h-screen overflow-y-auto rounded-lg pl-3">
-        <div className="flex justify-between items-center mb-4 pt-2">
-          <button onClick={toggleSidebar} className="text-xl text-gray-600">
-            <FaBars />
-          </button>
+    <div className="flex min-h-screen bg-neutral">
+      <aside className="w-64 bg-secondary min-h-screen flex flex-col">
+        <div className="p-6 border-b border-primary">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-primary">
+              <FaCog className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="text-dark font-medium text-lg">My Wallet</h2>
+              <p className="text-sm text-dark">Financial Dashboard</p>
+            </div>
+          </div>
         </div>
-        <Outlet />
-      </div>
+
+        <nav className="mt-6 px-4 flex-1">
+          <Link
+            to="/dashboard"
+            className="flex items-center gap-3 px-4 py-3 bg-accent text-primary rounded-lg mb-2 hover:bg-highlight transition-colors"
+          >
+            <FaTachometerAlt />
+            <span>Dashboard</span>
+          </Link>
+          
+          <Link
+            to="/dashboard/budget"
+            className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
+          >
+            <FaWallet />
+            <span>Set Budget</span>
+          </Link>
+          
+          <Link
+            to="/dashboard/categories"
+            className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
+          >
+            <FaListAlt />
+            <span>Categories</span>
+          </Link>
+          
+          <Link
+            to="/dashboard/transactions"
+            className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
+          >
+            <FaWallet />
+            <span>Transactions</span>
+          </Link>
+          
+          <Link
+            to="/dashboard/report"
+            className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
+          >
+            <FaFileAlt />
+            <span>Generate Report</span>
+          </Link>
+        </nav>
+        
+        <div className="p-4 mt-auto">
+          <Link
+            to="/dashboard/settings"
+            className="flex items-center gap-3 px-4 py-3 text-dark hover:bg-highlight hover:text-primary rounded-lg mb-2 transition-colors"
+          >
+            <FaCog />
+            <span>Settings</span>
+          </Link>
+          
+          <Link
+            to="/logout"
+            className="flex items-center gap-3 px-4 py-3 bg-warning text-dark hover:bg-highlight hover:text-primary rounded-lg transition-colors"
+          >
+            <FaSignOutAlt />
+            <span>Logout</span>
+          </Link>
+        </div>
+      </aside>
+
+      <main className="flex-1 p-6">
+        <header className="bg-accent text-primary py-4 px-6 rounded-lg shadow mb-6">
+          <h1 className="text-xl font-bold">Dashboard</h1>
+        </header>
+        
+        <div className="bg-primary rounded-lg shadow-sm p-6">
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 };

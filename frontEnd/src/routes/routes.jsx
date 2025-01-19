@@ -3,15 +3,17 @@ import { useEffect, useState } from 'react';
 import { userViewProfile } from '../slices/userSlice';
 import LoginPage from '../pages/LoginPage';
 import DashboardLayout from '../components/dashboard/DashboardLayout';
-import Profile from '../components/dashboard/Profile';
 import Dashboard from '../components/dashboard/Dashboard';
+import { useToast } from '../components/toasts/ToastManager';
+import PageNotFound from '../components/PageNotFound';
+import DashboardPageNotFound from '../components/dashboard/DashboardPageNotFound';
 
 const validateToken = () => {
   const token = localStorage.getItem('token');
   const tokenTimestamp = localStorage.getItem('tokenTimestamp');
   const sessionDuration = 5 * 60 * 60 * 1000; 
 
-  if (!token || !tokenTimestamp) {
+  if (!token) {
     return { isValid: false };
   }
 
@@ -65,9 +67,8 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  return isAuthorized ? children : (window.location.href = '/login');
+  return isAuthorized ? children : <Navigate to="/login" />;
 };
-
 const AppRouter = () => {
   const [profile, setProfile] = useState({
     firstname: '',
@@ -110,24 +111,18 @@ const AppRouter = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/home" element={<LoginPage />} />
       <Route path="/" element={<LoginPage />} />
-      <Route path="*" element={<HomeNotFound />} />
-        <Route index element={<Homepage />} />
+      <Route path="*" element={<PageNotFound />} />
+        <Route index element={<LoginPage />} />
       <Route
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <DashboardLayout profile={profile} />
+            <DashboardLayout/>
           </ProtectedRoute>
         }
       >
         <Route index element={<Dashboard />} />
-        <Route
-          path="profile"
-          element={
-            <Profile profile={profile} onSuccess={() => fetchProfile()} />
-          }
-        />
-        <Route path="*" element={<DashboardNotFound />} />
+        <Route path="*" element={<DashboardPageNotFound />} />
       </Route>
     </Routes>
   );
