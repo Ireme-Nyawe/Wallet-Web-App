@@ -2,7 +2,7 @@ import Joi from "joi";
 import httpStatus from "http-status";
 import Account from "../models/Account.js";
 
-// Validation schema
+
 const validateAccount = (data) => {
   const schema = Joi.object({
     accountName: Joi.string().required(),
@@ -14,7 +14,7 @@ const validateAccount = (data) => {
   return schema.validate(data);
 };
 
-// Create a new account
+
 export const createAccount = async (req, res) => {
   const { error } = validateAccount(req.body);
   if (error) {
@@ -40,7 +40,7 @@ export const createAccount = async (req, res) => {
   }
 };
 
-// Retrieve all accounts
+
 export const getAllAccounts = async (req, res) => {
   try {
     const accounts = await Account.find();
@@ -58,7 +58,7 @@ export const getAllAccounts = async (req, res) => {
   }
 };
 
-// Retrieve a specific account by ID
+
 export const getAccountById = async (req, res) => {
   const { id } = req.params;
 
@@ -85,7 +85,7 @@ export const getAccountById = async (req, res) => {
   }
 };
 
-// Update an account by ID
+
 export const updateAccountById = async (req, res) => {
   const { id } = req.params;
   const { error } = validateAccount(req.body);
@@ -119,7 +119,7 @@ export const updateAccountById = async (req, res) => {
   }
 };
 
-// Delete an account by ID
+
 export const deleteAccountById = async (req, res) => {
   const { id } = req.params;
 

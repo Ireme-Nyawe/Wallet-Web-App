@@ -1,19 +1,22 @@
 import Joi from "joi";
 import httpStatus from "http-status";
-import Category from "../database/models/category";
+import Budget from "../database/models/budget.js";
 
-// Validation schema
-const validateCategory = (data) => {
+
+const validateBudget = (data) => {
   const schema = Joi.object({
-    name: Joi.string().required(),
+    from: Joi.date().required(),
+    to: Joi.date(),
+    total: Joi.number().required(),
+    balance: Joi.number(),
   });
 
   return schema.validate(data);
 };
 
-// Create a new category
-export const createCategory = async (req, res) => {
-  const { error } = validateCategory(req.body);
+
+export const createBudget = async (req, res) => {
+  const { error } = validateBudget(req.body);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).json({
       status: httpStatus.BAD_REQUEST,
@@ -22,71 +25,69 @@ export const createCategory = async (req, res) => {
   }
 
   try {
-    const newCategory = await Category.create(req.body);
+    const newBudget = await Budget.create(req.body);
     res.status(httpStatus.CREATED).json({
       status: httpStatus.CREATED,
-      message: "Category created successfully",
-      data: newCategory,
+      message: "Budget created successfully",
+      data: newBudget,
     });
   } catch (err) {
-    const errorMessage = err.code === 11000 ? "Category name must be unique" : "Failed to create category";
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
-      error: errorMessage,
+      error: "Failed to create budget",
       details: err.message,
     });
   }
 };
 
-// Retrieve all categories
-export const getAllCategories = async (req, res) => {
+
+export const getAllBudgets = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const budgets = await Budget.find();
     res.status(httpStatus.OK).json({
       status: httpStatus.OK,
-      message: "Categories retrieved successfully",
-      data: categories,
+      message: "Budgets retrieved successfully",
+      data: budgets,
     });
   } catch (err) {
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
-      error: "Failed to retrieve categories",
+      error: "Failed to retrieve budgets",
       details: err.message,
     });
   }
 };
 
-// Retrieve a category by ID
-export const getCategoryById = async (req, res) => {
+
+export const getBudgetById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const category = await Category.findById(id);
-    if (!category) {
+    const budget = await Budget.findById(id);
+    if (!budget) {
       return res.status(httpStatus.NOT_FOUND).json({
         status: httpStatus.NOT_FOUND,
-        error: "Category not found",
+        error: "Budget not found",
       });
     }
 
     res.status(httpStatus.OK).json({
       status: httpStatus.OK,
-      message: "Category retrieved successfully",
-      data: category,
+      message: "Budget retrieved successfully",
+      data: budget,
     });
   } catch (err) {
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
-      error: "Failed to retrieve category",
+      error: "Failed to retrieve budget",
       details: err.message,
     });
   }
 };
 
-// Update a category by ID
-export const updateCategoryById = async (req, res) => {
+export const updateBudgetById = async (req, res) => {
   const { id } = req.params;
-  const { error } = validateCategory(req.body);
+  const { error } = validateBudget(req.body);
   if (error) {
     return res.status(httpStatus.BAD_REQUEST).json({
       status: httpStatus.BAD_REQUEST,
@@ -95,50 +96,49 @@ export const updateCategoryById = async (req, res) => {
   }
 
   try {
-    const updatedCategory = await Category.findByIdAndUpdate(id, req.body, { new: true });
-    if (!updatedCategory) {
+    const updatedBudget = await Budget.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedBudget) {
       return res.status(httpStatus.NOT_FOUND).json({
         status: httpStatus.NOT_FOUND,
-        error: "Category not found",
+        error: "Budget not found",
       });
     }
 
     res.status(httpStatus.OK).json({
       status: httpStatus.OK,
-      message: "Category updated successfully",
-      data: updatedCategory,
+      message: "Budget updated successfully",
+      data: updatedBudget,
     });
   } catch (err) {
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
-      error: "Failed to update category",
+      error: "Failed to update budget",
       details: err.message,
     });
   }
 };
 
-// Delete a category by ID
-export const deleteCategoryById = async (req, res) => {
+export const deleteBudgetById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const deletedCategory = await Category.findByIdAndDelete(id);
-    if (!deletedCategory) {
+    const deletedBudget = await Budget.findByIdAndDelete(id);
+    if (!deletedBudget) {
       return res.status(httpStatus.NOT_FOUND).json({
         status: httpStatus.NOT_FOUND,
-        error: "Category not found",
+        error: "Budget not found",
       });
     }
 
     res.status(httpStatus.OK).json({
       status: httpStatus.OK,
-      message: "Category deleted successfully",
-      data: deletedCategory,
+      message: "Budget deleted successfully",
+      data: deletedBudget,
     });
   } catch (err) {
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
-      error: "Failed to delete category",
+      error: "Failed to delete budget",
       details: err.message,
     });
   }
