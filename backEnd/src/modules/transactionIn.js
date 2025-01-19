@@ -2,7 +2,7 @@ import httpStatus from "http-status";
 import Account from "../database/models/account.js";
 import TransactionIn from "../database/models/transactionIn.js";
 
-export const TransactionIn = async (req, res) => {
+export const createInTransaction = async (req, res) => {
   const { accountId, amount, description } = req.body;
 
   if (!accountId || !amount || amount <= 0) {
