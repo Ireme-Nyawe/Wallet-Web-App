@@ -1,6 +1,6 @@
 import Joi from "joi";
 import httpStatus from "http-status";
-import Account from "../models/Account.js";
+import Account from "../database/models/account.js";
 
 
 const validateAccount = (data) => {

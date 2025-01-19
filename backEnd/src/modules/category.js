@@ -1,6 +1,6 @@
 import Joi from "joi";
 import httpStatus from "http-status";
-import Category from "../database/models/category";
+import Category from "../database/models/category.js";
 
 // Validation schema
 const validateCategory = (data) => {

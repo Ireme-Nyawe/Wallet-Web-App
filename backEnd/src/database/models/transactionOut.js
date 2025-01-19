@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+const { ObjectId } = mongoose.Schema;
 const transactionSchema = new mongoose.Schema(
   {
     category: {
