@@ -34,3 +34,12 @@ export const login = async (email, password) => {
     return handledError;
   }
 }
+export const userViewProfile = async () => {
+  try {
+      const response = await axiosInstance.get("/wallet-app-api/user/profile");
+      return response.data
+  } catch (error) {
+      const handledError = handleError(error);
+      return handledError
+  }
+}

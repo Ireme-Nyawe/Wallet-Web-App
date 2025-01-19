@@ -45,7 +45,8 @@ export default function LoginPage() {
         setIsLoading(false);
         localStorage.clear();
         localStorage.setItem("userIdToLogin", response.session.userId)
-        addToast("success", response.message, 5000);
+        localStorage.setItem("token", response.session.userId)
+        addToast("success", response.message, 3000);
         navigate("/dashbord");
       } else {
         setIsLoading(false);

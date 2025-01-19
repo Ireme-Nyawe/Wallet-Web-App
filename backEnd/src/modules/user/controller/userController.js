@@ -23,4 +23,19 @@ const userLogin = async (req, res) => {
   }
 };
 
-export default { userLogin };
+const viewUserProfile = async (req, res) => {
+  try {
+
+    return res.status(httpStatus.OK).json({
+      status: httpStatus.OK,
+      message: "User profile retrieved successFully.",
+      data: req.user,
+    });
+  } catch (error) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: httpStatus.INTERNAL_SERVER_ERROR,
+      message: error.message,
+    });
+  }
+};
+export default { userLogin , viewUserProfile};

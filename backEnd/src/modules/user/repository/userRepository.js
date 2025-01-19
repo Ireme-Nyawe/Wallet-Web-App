@@ -1,4 +1,5 @@
 import User from "../../../database/models/user.js";
+import Session from "../../../database/models/session.js";
 const findUserByEmail = (email) => {
   return User.findOne({ email: email });
 };
