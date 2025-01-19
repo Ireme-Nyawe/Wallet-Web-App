@@ -10,7 +10,6 @@ export default function LoginPage() {
   const [errors, setErrors] = useState({});
   const { addToast } = useToast();
   const navigate = useNavigate();
-
   const validateInputs = () => {
     const errors = {};
     if (!email) {

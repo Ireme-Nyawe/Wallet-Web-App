@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { FaTachometerAlt, FaWallet, FaListAlt, FaFileAlt, FaSignOutAlt, FaCog } from "react-icons/fa";
+import Logout from "./Logout";
 
 const DashboardLayout = () => {
   return (
@@ -59,7 +60,7 @@ const DashboardLayout = () => {
             <span>Generate Report</span>
           </Link>
         </nav>
-        
+
         <div className="p-4 mt-auto">
           <Link
             to="/dashboard/settings"
@@ -70,7 +71,7 @@ const DashboardLayout = () => {
           </Link>
           
           <Link
-            to="/logout"
+            to="/login" onClick={Logout}
             className="flex items-center gap-3 px-4 py-3 bg-warning text-dark hover:bg-highlight hover:text-primary rounded-lg transition-colors"
           >
             <FaSignOutAlt />
