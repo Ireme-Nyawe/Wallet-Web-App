@@ -1,16 +1,16 @@
 export const handleError = (error) => {
-    if (error.response) {
-      return {
-        status: error.response.status,
-        message:
-          error.response.data.message ||
-          "Something went wrong. Please try again.",
-      };
-    }
+  if (error.response) {
+    const message =
+      error.response.data.message ||
+      error.response.data.error ||
+      "Something went wrong. Please try again.";
     return {
-      status: 500,
-      message: error.message || "Unexpected error occurred. Please try again.",
+      status: error.response.status,
+      message,
     };
+  }
+  return {
+    status: 500,
+    message: error.message || "Unexpected error occurred. Please try again.",
   };
-  
-  
+};

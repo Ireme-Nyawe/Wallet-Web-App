@@ -2,7 +2,6 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { FaTachometerAlt, FaWallet, FaListAlt, FaFileAlt, FaSignOutAlt, FaCog } from "react-icons/fa";
 import Logout from "./Logout";
-import TopHeading from "./TopHeading";
 
 const DashboardLayout = () => {
   return (
@@ -15,7 +14,7 @@ const DashboardLayout = () => {
             </div>
             <div>
               <h2 className="text-dark font-medium text-lg">My Wallet</h2>
-              <p className="text-sm text-dark">Financial Dashboard</p>
+              <p className="text-sm text-dark">Financial Mvt mgt</p>
             </div>
           </div>
         </div>

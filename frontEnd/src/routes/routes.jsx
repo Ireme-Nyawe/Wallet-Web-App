@@ -102,14 +102,6 @@ const AppRouter = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (localStorage.getItem('token')) {
-        await fetchProfile();
-      }
-    };
-    fetchUserProfile();
-  }, []);
 
   return (
     <Routes>

@@ -7,14 +7,9 @@ import axiosInstance from "../utils/axios/axiosInstance";
  */
 import { handleError } from ".";
 
-export const createPeriodBudget = async (from, to, total, balance) => {
+export const createPeriodBudget = async (data) => {
   try {
-    const response = await axiosInstance.post("/wallet-app-api/budget/", {
-      from,
-      to,
-      total,
-      balance,
-    });
+    const response = await axiosInstance.post("/wallet-app-api/budget/",data);
     return response.data;
   } catch (error) {
     const handledError = handleError(error);
@@ -24,6 +19,33 @@ export const createPeriodBudget = async (from, to, total, balance) => {
 export const viewBudgets = async () => {
   try {
     const response = await axiosInstance.get("/wallet-app-api/budget/");
+    return response.data;
+  } catch (error) {
+    const handledError = handleError(error);
+    return handledError;
+  }
+};
+export const updateBudget = async (id,data) => {
+  try {
+    const response = await axiosInstance.put(`/wallet-app-api/budget/${id}`,data);
+    return response.data;
+  } catch (error) {
+    const handledError = handleError(error);
+    return handledError;
+  }
+};
+export const viewSingleBudget = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/wallet-app-api/budget/${id}`);
+    return response.data;
+  } catch (error) {
+    const handledError = handleError(error);
+    return handledError;
+  }
+};
+export const deleteBudget = async (id) => {
+  try {
+    const response = await axiosInstance.delete(`/wallet-app-api/budget/${id}`);
     return response.data;
   } catch (error) {
     const handledError = handleError(error);
