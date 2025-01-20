@@ -52,7 +52,7 @@ function Accounts() {
     await getAvailableAccounts();
   };
 
-  const handleUpdateBudgetClose = async () => {
+  const handleUpdateAccountClose = async () => {
     openUpdateAccountModal(false);
     await getAvailableAccounts();
   };
@@ -174,7 +174,7 @@ function Accounts() {
         <NewAccountModal onClose={handleNewAccountClose} />
       )}
       {isUpdateAccountModal && (
-        <AccountUpdateModal onClose={handleUpdateBudgetClose} id={clickedBudgetId} />
+        <AccountUpdateModal onClose={handleUpdateAccountClose} id={clickedBudgetId} />
       )}
     </div>
   );

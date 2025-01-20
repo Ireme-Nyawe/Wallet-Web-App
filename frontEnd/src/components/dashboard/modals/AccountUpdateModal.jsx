@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { updateBudget, viewSingleBudget } from "../../../slices/budgetSlice";
 import Button from "../../reusable/Button";
 import { useToast } from "../../toasts/ToastManager";
 import { updateAccount, viewSingleAccount } from "../../../slices/accountSlice";
@@ -29,7 +28,7 @@ function AccountUpdateModal({ onClose, id }) {
         });
         setExistingData(data);
       } catch (error) {
-        addToast("error", "Failed to fetch budget data.", 3000);
+        addToast("error", "Failed to fetch data.", 3000);
       }
     };
 

@@ -125,7 +125,7 @@ export default function LoginPage() {
         </div>
       )}
       <footer className="text-gray-600 text-sm mt-6">
-        &copy; 2025 AKIMANA. All rights reserved. patenered COA with DCCS
+        &copy; 2025 AKIMANA. All rights reserved. partnered COA with DCCS
       </footer>
     </div>
   );

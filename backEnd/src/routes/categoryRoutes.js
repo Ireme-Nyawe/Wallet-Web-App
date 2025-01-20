@@ -10,10 +10,10 @@ import {
 
 const categoryRoute = express.Router();
 
-categoryRoute.post("/", createCategory); // Create a category
-categoryRoute.get("/", getAllCategories); // Get all categories
-categoryRoute.get("/:id", getCategoryById); // Get a category by ID
-categoryRoute.put("/:id", updateCategoryById); // Update a category by ID
-categoryRoute.delete("/:id", deleteCategoryById); // Delete a category by ID
+categoryRoute.post("/", createCategory); 
+categoryRoute.get("/", getAllCategories); 
+categoryRoute.get("/:id", getCategoryById); 
+categoryRoute.put("/:id", updateCategoryById);
+categoryRoute.delete("/:id", deleteCategoryById);
 
 export default categoryRoute;
