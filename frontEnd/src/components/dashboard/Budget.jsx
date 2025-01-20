@@ -10,7 +10,7 @@ function Budget() {
   const [isUpdateBudgetModal, openUpdateBudgetModal] = useState(false);
   const [budgets, setBudgets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(2);
+  const [recordsPerPage] = useState(8);
   const [fetching, setFetching] = useState(true);
   const [clickedBudgetId, setClickedBudgetId] = useState();
   const { addToast } = useToast();
@@ -64,7 +64,7 @@ function Budget() {
             onClick={() => openNewBudgetModal(true)}
             className="bg-highlight p-3 px-8 text-white hover:bg-accent items-right"
           >
-            New Budget
+            + New Budget
           </button>
         </div>
         {fetching ? (
