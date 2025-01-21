@@ -112,6 +112,9 @@ function Transactions() {
                   <td className="px-6 py-3 border-b border-gray-300">
                     <div className="h-4 bg-gray-300 rounded"></div>
                   </td>
+                  <td className="px-6 py-3 border-b border-gray-300">
+                    <div className="h-4 bg-gray-300 rounded"></div>
+                  </td>
                   
                 </tr>
               ))}
@@ -135,7 +138,7 @@ function Transactions() {
                 <tr key={tr._id}>
                   <td className="px-6 py-3 border-b border-gray-300">{index + 1}</td>
                   <td className="px-6 py-3 border-b border-gray-300">
-                  {tr.account.accountNumber}
+                  {tr.account.accountName}
                   </td>
                   <td className="px-6 py-3 border-b border-gray-300">
                     {tr.account.accountNumber}
@@ -217,6 +220,9 @@ function Transactions() {
                   <td className="px-6 py-3 border-b border-gray-300">
                     <div className="h-4 bg-gray-300 rounded"></div>
                   </td>
+                  <td className="px-6 py-3 border-b border-gray-300">
+                    <div className="h-4 bg-gray-300 rounded"></div>
+                  </td>
                   
                 </tr>
               ))}
@@ -240,7 +246,7 @@ function Transactions() {
                 <tr key={tr._id}>
                   <td className="px-6 py-3 border-b border-gray-300">{index + 1}</td>
                   <td className="px-6 py-3 border-b border-gray-300">
-                  {tr.account.accountNumber}
+                  {tr.account.accountName}
                   </td>
                   <td className="px-6 py-3 border-b border-gray-300">
                     {tr.account.accountNumber}

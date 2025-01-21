@@ -25,7 +25,7 @@ export const createAccount = async (req, res) => {
   const { accountNumber, bankName } = req.body;
 
   try {
-    // Validate no duplicate account exists
+  
     const existingAccount = await Account.findOne({ accountNumber, bankName });
     if (existingAccount) {
       return res.status(httpStatus.CONFLICT).json({
@@ -34,7 +34,6 @@ export const createAccount = async (req, res) => {
       });
     }
 
-    // Create a new account
     const newAccount = await Account.create(req.body);
     res.status(httpStatus.CREATED).json({
       status: httpStatus.CREATED,
@@ -52,7 +51,7 @@ export const createAccount = async (req, res) => {
 
 export const getAllAccounts = async (req, res) => {
   try {
-    const accounts = await Account.find(); // Returns all accounts
+    const accounts = await Account.find(); 
     res.status(httpStatus.OK).json({
       status: httpStatus.OK,
       message: "Accounts retrieved successfully",
@@ -71,7 +70,7 @@ export const getAccountById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const account = await Account.findById(id); // Mongoose-specific method
+    const account = await Account.findById(id);
     if (!account) {
       return res.status(httpStatus.NOT_FOUND).json({
         status: httpStatus.NOT_FOUND,
@@ -107,7 +106,7 @@ export const updateAccountById = async (req, res) => {
     const updatedAccount = await Account.findByIdAndUpdate(
       id,
       req.body,
-      { new: true, runValidators: true } // `new: true` returns the updated document
+      { new: true, runValidators: true } 
     );
     if (!updatedAccount) {
       return res.status(httpStatus.NOT_FOUND).json({
@@ -134,7 +133,7 @@ export const deleteAccountById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const deletedAccount = await Account.findByIdAndDelete(id); // Mongoose-specific method
+    const deletedAccount = await Account.deleteOne(id); 
     if (!deletedAccount) {
       return res.status(httpStatus.NOT_FOUND).json({
         status: httpStatus.NOT_FOUND,

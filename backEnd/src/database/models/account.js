@@ -24,6 +24,23 @@ const AccountSchema = new mongoose.Schema(
   }
 );
 
+AccountSchema.pre("deleteOne", { document: true, query: false }, async function (next) {
+  const TransactionIn = mongoose.model("transactionIns");
+  const Transaction = mongoose.model("transactions");
+
+  const accountId = this._id;
+
+  const hasReferences =
+    (await TransactionIn.exists({ account: accountId })) ||
+    (await Transaction.exists({ account: accountId }));
+
+  if (hasReferences) {
+    const error = new Error("Account cannot be deleted as it has references in other models.");
+    return next(error);
+  }
+  next();
+});
+
 const Account = mongoose.model("accounts", AccountSchema);
 
 export default Account;

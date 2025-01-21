@@ -20,7 +20,7 @@ function Categories() {
   const getAvailableCategories = async () => {
     setFetching(true); 
     const response = await viewCategories();
-    setCategories(response.data);
+    setCategories(response.data || []);
     setFetching(false);
   };
 

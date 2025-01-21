@@ -122,7 +122,7 @@ export const deleteCategoryById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const deletedCategory = await Category.findByIdAndDelete(id);
+    const deletedCategory = await Category.deleteOne(id);
     if (!deletedCategory) {
       return res.status(httpStatus.NOT_FOUND).json({
         status: httpStatus.NOT_FOUND,

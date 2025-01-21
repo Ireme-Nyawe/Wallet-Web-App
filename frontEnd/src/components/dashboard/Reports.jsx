@@ -170,6 +170,9 @@ const getAvailableTransactionsOutRange = async () => {
                   <td className="px-6 py-3 border-b border-gray-300">
                     <div className="h-4 bg-gray-300 rounded"></div>
                   </td>
+                  <td className="px-6 py-3 border-b border-gray-300">
+                    <div className="h-4 bg-gray-300 rounded"></div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -202,7 +205,7 @@ const getAvailableTransactionsOutRange = async () => {
                     {index + 1}
                   </td>
                   <td className="px-6 py-3 border-b border-gray-300">
-                    {tr.account.accountNumber}
+                    {tr.account.accountName}
                   </td>
                   <td className="px-6 py-3 border-b border-gray-300">
                     {tr.account.accountNumber}
@@ -295,6 +298,9 @@ const getAvailableTransactionsOutRange = async () => {
                   <td className="px-6 py-3 border-b border-gray-300">
                     <div className="h-4 bg-gray-300 rounded"></div>
                   </td>
+                  <td className="px-6 py-3 border-b border-gray-300">
+                    <div className="h-4 bg-gray-300 rounded"></div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -325,7 +331,7 @@ const getAvailableTransactionsOutRange = async () => {
                     {index + 1}
                   </td>
                   <td className="px-6 py-3 border-b border-gray-300">
-                    {tr.account.accountNumber}
+                    {tr.account.accountName}
                   </td>
                   <td className="px-6 py-3 border-b border-gray-300">
                     {tr.account.accountNumber}
