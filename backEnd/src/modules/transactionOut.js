@@ -151,6 +151,7 @@ export const getTransactionsByDateRange = async (req, res) => {
   try {
     const transactions = await Transaction.find()
     .populate("account")
+    .populate("category")
  
 
 

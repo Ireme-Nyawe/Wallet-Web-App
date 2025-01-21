@@ -65,7 +65,6 @@ function Transactions() {
     openNewTransactionOutModal(false);
     await getAvailableTransactionsOut();
   };
-
   return (
     <div>
       <TopHeading title="My Transactions " />
