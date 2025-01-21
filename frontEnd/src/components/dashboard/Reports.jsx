@@ -20,7 +20,7 @@ function Reports() {
   const [fetching2, setFetching2] = useState(true);
   const [isTransactionInClicked, setTransactionInClicked] = useState(false);
   const [isTransactionOutClicked, setTransactionOutClicked] = useState(false);
-  const [reportClicked,setReportClicked] = useState(false)
+  const [reportClicked, setReportClicked] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     date1: "",
@@ -49,40 +49,43 @@ function Reports() {
     getAvailableTransactionsOut();
   }, []);
 
-  const getAvailableTransactionsInRange = async (date1, date2) => {
+  const getAvailableTransactionsInRange = async () => {
     setFetching(true);
-    const response = await viewTransactionsInWithinRange(date1, date2);
+    const response = await viewTransactionsInWithinRange(formData);
     setTransactionsIn(response.data || []);
     setFetching(false);
   };
 
-  const handleViewTransactionIn = (date1, date2) => {
+  const handleViewTransactionIn = () => {
     useEffect(() => {
-      getAvailableTransactionsInRange(date1, date2);
+      getAvailableTransactionsInRange(formData);
     }, []);
   };
-  const getAvailableTransactionsOutRange = async (date1, date2) => {
+  const getAvailableTransactionsOutRange = async () => {
     setFetching2(true);
-    const response = await viewTransactionsOutWithinRange(date1, date2);
+    const response = await viewTransactionsOutWithinRange();
     setTransactionsOut(response.data || []);
     setFetching2(false);
   };
 
-  const handleViewTransactionOut = (data) => {
+  const handleViewTransactionOut = () => {
+    console.log(formData);
     useEffect(() => {
-      getAvailableTransactionsOutRange(date1, date2);
+      getAvailableTransactionsOutRange();
     }, []);
   };
   const handleClickTransactionIn = () => {
     setTransactionOutClicked(false);
     setTransactionInClicked(true);
-  setReportClicked(true)
+    setReportClicked(true);
   };
   const handleClickTransactionOut = () => {
     setTransactionInClicked(false);
     setTransactionOutClicked(true);
-    setReportClicked(true)
-
+    setReportClicked(true);
+  };
+  const handleModalClose = async () => {
+    setReportClicked(false);
   };
 
   const handleInputChange = (e) => {
@@ -361,25 +364,57 @@ function Reports() {
         )}
       </div>
       {reportClicked && (
-        <div>
-          <div>
-            <label className="block text-dark font-medium mb-1">Date</label>
-            <input
-              type="text"
-              name="name"
-              required
-              value={""}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-neutral rounded focus:outline-none focus:ring-2 focus:ring-highlight"
-            />
-          </div>
+        <div className="fixed  w-full inset-0 flex flex-col items-center  justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-primary p-6">
+            <button
+              onClick={handleModalClose}
+              className="text-dark border rounded-full border-2 border-warning px-2 hover:text-warning font-bold text-xl"
+            >
+              &times;
+            </button>
+            <form className="flex p-3 m-3">
+              <div>
+                <label className="block text-dark font-medium mb-1">
+                  Date1- From
+                </label>
+                <input
+                  type="date"
+                  name="date1"
+                  value={formData.date1}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-dark font-medium mb-1">
+                  Date2- To
+                </label>
 
-          <div className="flex justify-end mt-4">
-            {isTransactionInClicked ? (
-              <button>transactionin</button>
-            ) : (
-              <button>out</button>
-            )}
+                <input
+                  type="date"
+                  name="date2"
+                  value={formData.date2}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </form>
+
+            <div className="flex justify-start mt-4">
+              {isTransactionInClicked ? (
+                <button
+                  className="w-full bg-accent text-primary py-3 rounded-md font-semibold hover:bg-highlight transition"
+                  onClick={handleViewTransactionIn}
+                >
+                  Report/ TransactionIn
+                </button>
+              ) : (
+                <button
+                  className="w-full bg-accent text-primary py-3 rounded-md font-semibold hover:bg-highlight transition"
+                  onClick={handleViewTransactionOut}
+                >
+                  Report/ TransactionOut
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
