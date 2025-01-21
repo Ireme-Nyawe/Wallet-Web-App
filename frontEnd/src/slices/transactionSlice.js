@@ -44,9 +44,9 @@ export const addTransactionOut = async (data) => {
       return handledError;
     }
   };
-  export const viewTransactionsOutWithinRange = async () => {
+  export const viewTransactionsOutWithinRange = async (data) => {
     try {
-      const response = await axiosInstance.post("/wallet-app-api/transaction-out/transactions-by-date-range");
+      const response = await axiosInstance.post("/wallet-app-api/transaction-out/transactions-by-date-range",data);
       return response.data;
     } catch (error) {
       const handledError = handleError(error);

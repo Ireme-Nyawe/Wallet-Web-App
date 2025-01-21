@@ -46,8 +46,12 @@ function Dashboard() {
     }))
     .sort((a, b) => b.totalTransactions - a.totalTransactions)[0];
 
-  const chartData = {
-    labels: budgets.map((b, i) => `Budget ${i + 1}`),
+  const budgetChartData = {
+    labels: budgets.map((b) => {
+      const fromDate = new Date(b.from).toLocaleDateString();
+      const toDate = new Date(b.to).toLocaleDateString();
+      return `Budget (${fromDate} - ${toDate})`;
+    }),
     datasets: [
       {
         label: "Total Budget",
@@ -58,6 +62,17 @@ function Dashboard() {
         label: "Used Budget",
         data: budgets.map((b) => b.total - b.balance),
         backgroundColor: "#F472B6",
+      },
+    ],
+  };
+
+  const transactionChartData = {
+    labels: ["Transactions In", "Transactions Out"],
+    datasets: [
+      {
+        label: "Transactions",
+        data: [totalTransactionsIn, totalTransactionsOut],
+        backgroundColor: ["#34D399", "#FB7185"],
       },
     ],
   };
@@ -97,9 +112,15 @@ function Dashboard() {
             </div>
           )}
 
-          <div className="bg-primary p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-bold text-dark mb-4">Budget Usage</h2>
-            <Bar data={chartData} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-primary p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-bold text-dark mb-4">Budget Usage</h2>
+              <Bar data={budgetChartData} />
+            </div>
+            <div className="bg-primary p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-bold text-dark mb-4">Transactions Overview</h2>
+              <Bar data={transactionChartData} />
+            </div>
           </div>
         </div>
       )}
