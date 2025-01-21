@@ -16,9 +16,9 @@ export const addMoneyToAccount = async (data) => {
     return handledError;
   }
 };
-export const viewTransactionsInWithinRange = async () => {
+export const viewTransactionsInWithinRange = async (data) => {
   try {
-    const response = await axiosInstance.post("/wallet-app-api/transaction-in/transactions-in-range");
+    const response = await axiosInstance.post("/wallet-app-api/transaction-in/transactions-in-range",data);
     return response.data;
   } catch (error) {
     const handledError = handleError(error);

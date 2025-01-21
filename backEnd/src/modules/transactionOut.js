@@ -111,6 +111,7 @@ export const createTransaction = async (req, res) => {
 
 export const getTransactionsByDateRange = async (req, res) => {
   const { date1, date2 } = req.body;
+  console.log(req.body);
 
   if (new Date(date1) > new Date(date2)) {
     return res.status(httpStatus.BAD_REQUEST).json({

@@ -21,11 +21,9 @@ export const createInTransaction = async (req, res) => {
       });
     }
 
-    // Update account balance
     account.balance = Number(account.balance) + Number(amount);
     await account.save();
 
-    // Create the transaction
     const transaction = new TransactionIn({
       account: accountId,
       amount,
@@ -33,7 +31,6 @@ export const createInTransaction = async (req, res) => {
     });
     await transaction.save();
 
-    // Populate account reference
     const populatedTransaction = await transaction.populate("account");
 
     res.status(httpStatus.CREATED).json({
@@ -54,7 +51,7 @@ export const createInTransaction = async (req, res) => {
 };
 
 export const getTransactionsInRange = async (req, res) => {
-  const { date1, date2 } = req.query;
+  const { date1, date2 } = req.body;
 
   if (!date1 || !date2) {
     return res.status(httpStatus.BAD_REQUEST).json({
@@ -71,11 +68,9 @@ export const getTransactionsInRange = async (req, res) => {
   }
 
   try {
-    // Query for transactions within the date range
     const transactions = await TransactionIn.find({
       createdAt: { $gte: new Date(date1), $lte: new Date(date2) },
-    }).populate("account"); // Populate the `account` reference
-
+    }).populate("account");
     if (transactions.length === 0) {
       return res.status(httpStatus.NOT_FOUND).json({
         status: httpStatus.NOT_FOUND,

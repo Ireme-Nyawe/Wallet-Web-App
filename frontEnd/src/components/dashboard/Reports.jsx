@@ -57,22 +57,23 @@ function Reports() {
   };
 
   const handleViewTransactionIn = () => {
-    useEffect(() => {
-      getAvailableTransactionsInRange(formData);
-    }, []);
+    console.log(formData);
+    getAvailableTransactionsInRange();
+    handleModalClose()
+    
   };
-  const getAvailableTransactionsOutRange = async () => {
+ 
+const getAvailableTransactionsOutRange = async () => {
     setFetching2(true);
-    const response = await viewTransactionsOutWithinRange();
+    const response = await viewTransactionsOutWithinRange(formData);
     setTransactionsOut(response.data || []);
     setFetching2(false);
   };
 
   const handleViewTransactionOut = () => {
-    console.log(formData);
-    useEffect(() => {
-      getAvailableTransactionsOutRange();
-    }, []);
+          getAvailableTransactionsOutRange();
+          handleModalClose()
+          
   };
   const handleClickTransactionIn = () => {
     setTransactionOutClicked(false);
@@ -86,6 +87,10 @@ function Reports() {
   };
   const handleModalClose = async () => {
     setReportClicked(false);
+    setFormData({
+      date1: "",
+      date2: "",
+    })
   };
 
   const handleInputChange = (e) => {
@@ -113,7 +118,7 @@ function Reports() {
 
   return (
     <div>
-      <TopHeading title="My Transactions " />
+      <TopHeading title="My Transactions Reports" />
       <div>
         <div className="flex w-full justify-end">
           <button
@@ -372,7 +377,9 @@ function Reports() {
             >
               &times;
             </button>
-            <form className="flex p-3 m-3">
+              <h3 className="text-2xl m-3">Generate Transactions Report</h3>
+              <hr />
+            <form className="flex p-3 m-3 gap-6">
               <div>
                 <label className="block text-dark font-medium mb-1">
                   Date1- From
