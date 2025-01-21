@@ -1,7 +1,7 @@
 import httpStatus from "http-status";
 import Account from "../database/models/account.js";
-import Transaction from "../database/models/transactionIn.js";
 import Budget from "../database/models/budget.js";
+import Transaction from "../database/models/transactionOut.js";
 
 export const checkAccountBalance = async (req, res, next) => {
   const { accountId, amount } = req.body;
@@ -64,7 +64,7 @@ export const checkBudgetBalance = async (req, res, next) => {
 
 
 export const createTransaction = async (req, res) => {
-  const { categoryId, accountId, amount, description } = req.body;
+  const { categoryId, accountId, amount } = req.body;
 
   if (!categoryId || !accountId || !amount) {
     return res.status(httpStatus.BAD_REQUEST).json({
@@ -77,7 +77,6 @@ export const createTransaction = async (req, res) => {
     const transaction = new Transaction({
       category: categoryId,
       amount,
-      description,
       account: accountId,
     });
 
@@ -111,36 +110,66 @@ export const createTransaction = async (req, res) => {
 };
 
 export const getTransactionsByDateRange = async (req, res) => {
-    const { date1, date2 } = req.body;
-  
-    if (new Date(date1) > new Date(date2)) {
-      return res.status(httpStatus.BAD_REQUEST).json({
-        status: httpStatus.BAD_REQUEST,
-        error: "Date1 should be less than or equal to Date2",
+  const { date1, date2 } = req.body;
+
+  if (new Date(date1) > new Date(date2)) {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      status: httpStatus.BAD_REQUEST,
+      error: "from date should be less than or equal to limit last date",
+    });
+  }
+
+  try {
+    const transactions = await Transaction.find({
+      createdAt: { $gte: new Date(date1), $lte: new Date(date2) },
+    })
+      .populate("account")
+      .populate("category");
+    
+
+    if (transactions.length === 0) {
+      return res.status(httpStatus.NOT_FOUND).json({
+        status: httpStatus.NOT_FOUND,
+        error: "No transactions found within the given date range",
       });
     }
-  
-    try {
-      const transactions = await Transaction.find({
-        createdAt: { $gte: new Date(date1), $lte: new Date(date2) },
-      }).populate('category account');
-  
-      if (transactions.length === 0) {
-        return res.status(httpStatus.NOT_FOUND).json({
-          status: httpStatus.NOT_FOUND,
-          error: "No transactions found within the given date range",
-        });
-      }
-  
-      res.status(httpStatus.OK).json({
-        status: httpStatus.OK,
-        data: transactions,
-      });
-    } catch (err) {
-      return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
-        status: httpStatus.INTERNAL_SERVER_ERROR,
-        error: "Failed to retrieve transactions",
-        details: err.message,
+
+    res.status(httpStatus.OK).json({
+      status: httpStatus.OK,
+      data: transactions,
+    });
+  } catch (err) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: httpStatus.INTERNAL_SERVER_ERROR,
+      error: "Failed to retrieve transactions",
+      details: err.message,
+    });
+  }
+};
+
+  export const getTransactionsOut = async (req, res) => {
+  try {
+    const transactions = await Transaction.find()
+    .populate("account")
+ 
+
+
+    if (transactions.length === 0) {
+      return res.status(httpStatus.NOT_FOUND).json({
+        status: httpStatus.NOT_FOUND,
+        error: "No transactions found",
       });
     }
-  };
+
+    res.status(httpStatus.OK).json({
+      status: httpStatus.OK,
+      data: transactions,
+    });
+  } catch (err) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: httpStatus.INTERNAL_SERVER_ERROR,
+      error: "Failed to retrieve transactions",
+      details: err.message,
+    });
+  }
+};

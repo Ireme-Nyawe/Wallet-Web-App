@@ -1,10 +1,10 @@
 import express from "express";
-import { createInTransaction, getTransactionsInRange } from "../modules/transactionIn.js";
+import { createInTransaction, getTransactionsIn, getTransactionsInRange } from "../modules/transactionIn.js";
 
 
 const transactionIn = express.Router();
 
-transactionIn.post("/create", createInTransaction);
-transactionIn.get("/transactions-in-range", getTransactionsInRange);
-
+transactionIn.post("/create",createInTransaction);
+transactionIn.post("/transactions-in-range",getTransactionsInRange);
+transactionIn.get("/",getTransactionsIn)
 export default transactionIn;

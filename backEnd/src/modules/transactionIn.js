@@ -20,9 +20,12 @@ export const createInTransaction = async (req, res) => {
         error: "Account not found",
       });
     }
-    account.balance += amount;
+
+    // Update account balance
+    account.balance = Number(account.balance) + Number(amount);
     await account.save();
 
+    // Create the transaction
     const transaction = new TransactionIn({
       account: accountId,
       amount,
@@ -30,12 +33,15 @@ export const createInTransaction = async (req, res) => {
     });
     await transaction.save();
 
+    // Populate account reference
+    const populatedTransaction = await transaction.populate("account");
+
     res.status(httpStatus.CREATED).json({
       status: httpStatus.CREATED,
       message: "Transaction added successfully and account balance updated",
       data: {
         account,
-        transaction,
+        transaction: populatedTransaction,
       },
     });
   } catch (err) {
@@ -65,9 +71,34 @@ export const getTransactionsInRange = async (req, res) => {
   }
 
   try {
+    // Query for transactions within the date range
     const transactions = await TransactionIn.find({
       createdAt: { $gte: new Date(date1), $lte: new Date(date2) },
+    }).populate("account"); // Populate the `account` reference
+
+    if (transactions.length === 0) {
+      return res.status(httpStatus.NOT_FOUND).json({
+        status: httpStatus.NOT_FOUND,
+        message: "No transactions found within the specified date range",
+      });
+    }
+
+    res.status(httpStatus.OK).json({
+      status: httpStatus.OK,
+      data: transactions,
     });
+  } catch (err) {
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: httpStatus.INTERNAL_SERVER_ERROR,
+      error: "Failed to retrieve transactions",
+      details: err.message,
+    });
+  }
+};
+
+export const getTransactionsIn = async (req, res) => {
+  try {
+    const transactions = await TransactionIn.find().populate("account");
 
     if (transactions.length === 0) {
       return res.status(httpStatus.NOT_FOUND).json({

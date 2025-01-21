@@ -2,14 +2,12 @@ import axios from "axios";
 
 // Helper function to retrieve token from localStorage
 const getToken = () => {
+  console.log("Token",localStorage.getItem("token"));
   return localStorage.getItem("token");
 };
 
-// Debugging: Log the baseURL to verify it's being set correctly
-console.log("Backend URL:", import.meta.env.VITE_REACT_APP_BACKEND_URL);
-
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_REACT_APP_BACKEND_URL, // Ensure the variable is prefixed with VITE_
+  baseURL: import.meta.env.VITE_REACT_APP_BACKEND_URL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
