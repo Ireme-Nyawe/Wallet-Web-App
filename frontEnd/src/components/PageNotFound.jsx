@@ -8,11 +8,11 @@ const PageNotFound = () => {
         <FaExclamationTriangle className="text-red-500 text-6xl mb-4" />
         <h1 className="text-3xl font-bold mb-2">Page Not Found</h1>
         <p className="text-lg mb-6 text-center">
-          {"The page you're looking for doesn't exist or has been moved."}
+          {"The page you're looking is not available right, check url, if not case be assured. team is working on it."}
         </p>
         <Link
-          to="/dashboard"
-          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
+          to="/"
+          className="bg-accent text-white px-6 py-2 rounded-lg hover:bg-highlight transition"
         >
           Go Back to Dashboard
         </Link>
