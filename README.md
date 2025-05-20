@@ -50,11 +50,11 @@ The frontend is implemented using **React.js** with the following structure:
 
 ### Deployment Details
 - **Frontend**: The application is accessible at:  
-  [https://trans-wallet.netlify.app/](https://trans-accounts-wallet.netlify.app/)
+  [https://trans-accounts-wallet.netlify.app/](https://trans-accounts-wallet.netlify.app/)
 - **Backend**: Hosted on **Render**, integrated into the frontend.
 
 ### Step-by-Step Usage
-1. Visit the frontend URL: [https://trans-wallet.netlify.app/](https://trans-accounts-wallet.netlify.app/).
+1. Visit the frontend URL: [https://trans-accounts-wallet.netlify.app/](https://trans-accounts-wallet.netlify.app/).
 2. Use the provided credentials to log in:  
    - **Email**: `demo@user.com`  
    - **Password**: `password123`
